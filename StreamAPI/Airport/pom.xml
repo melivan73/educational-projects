@@ -83,11 +83,11 @@
             <version>${assertj.platform.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
             <version>${puppycrawl.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.skillbox</groupId>
             <artifactId>airport</artifactId>
