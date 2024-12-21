@@ -1,0 +1,9 @@
+21-12-2024 17:28:06.553 [main] INFO  Main - add Иван Иванов
+21-12-2024 17:28:35.380 [main] INFO  Main - add Василий Петров vasily.petrov@gmail.com +79215637722
+21-12-2024 17:28:49.365 [main] INFO  Main - list
+21-12-2024 17:28:54.677 [main] INFO  Main - count
+21-12-2024 17:29:02.893 [main] INFO  Main - add Пуп Пупкин pup.pupkin@mail.ru +79161111111
+21-12-2024 17:29:09.820 [main] INFO  Main - add Иван Иванов ivan@ivanov. 89017926666
+21-12-2024 17:29:15.260 [main] INFO  Main - add Пётр Петров ivan@ivanov.tu +790179266
+21-12-2024 17:31:45.981 [main] INFO  Main - add Иван Иванов
+21-12-2024 17:32:04.366 [main] INFO  Main - remove Пуп
