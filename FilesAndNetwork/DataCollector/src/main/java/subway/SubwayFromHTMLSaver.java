@@ -1,7 +1,9 @@
 package subway;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.PrettyPrinter;
+import com.fasterxml.jackson.databind.*;
 import lombok.Getter;
 
 import java.io.FileWriter;
@@ -22,7 +24,7 @@ public class SubwayFromHTMLSaver {
 
     public void saveJsonFile(String path) {
         String newJson = "";
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);;
         try {
             newJson = objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {

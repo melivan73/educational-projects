@@ -21,4 +21,10 @@ public class Line {
             this.number.chars().forEach(value -> num += value);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Line{" + "name='" + name + '\'' + ", number='" + number + '\'' + ", num=" + num + '}';
+    }
+
 }

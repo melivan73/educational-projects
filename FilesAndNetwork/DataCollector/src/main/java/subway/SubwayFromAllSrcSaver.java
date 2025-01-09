@@ -2,6 +2,7 @@ package subway;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Getter;
 import files.CSVFileParser;
 import files.JSONFileParser;
@@ -36,7 +37,7 @@ public class SubwayFromAllSrcSaver {
 
     public void saveJsonFile(String path) {
         String newJson = "";
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         try {
             newJson = objectMapper.writeValueAsString(objectToSave);
         } catch (JsonProcessingException e) {
