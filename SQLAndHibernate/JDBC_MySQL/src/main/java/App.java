@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/skillbox";
         String user = "root";
-        String pass = "8Uz^rD49]}cE`{1";
+        String pass = "8Uz1rD492";
 
         try {
             Connection connection = DriverManager.getConnection(url, user, pass);
