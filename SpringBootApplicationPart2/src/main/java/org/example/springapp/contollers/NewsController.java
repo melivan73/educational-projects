@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.Collection;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(path = "api/news")
 public class NewsController {
@@ -20,7 +21,7 @@ public class NewsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getNewsById(@PathVariable Long id) {
-        NewsDto newsDto = this.service.getById(id);
+        NewsDto newsDto = service.getById(id);
         if (newsDto == null) {
             String response = "{\n\t\"message\": \"Новость с id " + id + " не найдена.\"\n}";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -59,4 +60,15 @@ public class NewsController {
                                  .body(response);
         }
     }
+
+    @GetMapping("/category/{categoryId}")
+    public Collection<NewsDto> getNewsByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        return service.getNewsByCategoryId(categoryId);
+    }
+
+    @GetMapping("/category")
+    public Collection<NewsDto> getNewsByCategoryName(@RequestParam String name) {
+        return service.getNewsByCategoryName(name);
+    }
+
 }

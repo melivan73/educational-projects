@@ -1,68 +1,74 @@
 package org.example.springapp.services;
 
 import org.example.springapp.dto.NewsDto;
+import org.example.springapp.entity.News;
+import org.example.springapp.mapper.NewsMapper;
+import org.example.springapp.repo.NewsRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
 @Service
 public class NewsService implements CRUDService<NewsDto> {
-    private final Map<Long, NewsDto> newsFeed = new ConcurrentHashMap<>();
+    private final NewsRepository newsRepository;
+    private final NewsMapper newsMapper;
 
-    public NewsService() {
-        NewsDto o1 = new NewsDto(1L, "news_1", "Text Text Text", Instant.now());
-        NewsDto o2 = new NewsDto(2L, "news_2", "Text Text Text Text", Instant.now());
-        newsFeed.put(1L, o1);
-        newsFeed.put(2L, o2);
+    public NewsService(NewsRepository newsRepository, NewsMapper newsMapper) {
+        this.newsRepository = newsRepository;
+        this.newsMapper = newsMapper;
     }
 
     @Override
     public NewsDto getById(Long id) {
-        if (!newsFeed.containsKey(id)) {
+        if (!newsRepository.existsById(id)) {
             return null;
         }
-        return newsFeed.get(id);
+        return newsMapper.toDto(newsRepository.findById(id).orElseThrow());
     }
 
     @Override
     public Collection<NewsDto> getAll() {
-        return newsFeed.values();
+        return newsRepository.findAll()
+                .stream()
+                .map(newsMapper::toDto)
+                .toList();
     }
 
     @Override
-    public NewsDto create(NewsDto item) {
-        long nextId = Collections.max(newsFeed.keySet()) + 1;
-        item.setId(nextId);
-        if (item.getDate() == null) {
-            item.setDate(Instant.now());
-        }
-        newsFeed.put(nextId, item);
-        return item;
+    public NewsDto create(NewsDto newsDto) {
+        News news = newsMapper.toEntity(newsDto);
+        news = newsRepository.save(news);
+        newsDto.setId(news.getId());
+        return newsDto;
     }
 
     @Override
-    public NewsDto update(NewsDto item) {
-        Long id = item.getId();
-        if (!newsFeed.containsKey(id)) {
-            return null;
-        }
-        if (item.getDate() == null) {
-            item.setDate(Instant.now());
-        }
-        newsFeed.put(id, item);
-        return item;
+    public NewsDto update(NewsDto newsDto) {
+        newsRepository.save(newsMapper.toEntity(newsDto));
+        return newsDto;
     }
 
     @Override
     public boolean deleteById(Long id) {
-        if (!newsFeed.containsKey(id)) {
+        if (!newsRepository.existsById(id)) {
             return false;
         }
-        newsFeed.remove(id);
+        newsRepository.deleteById(id);
         return true;
+    }
+
+    public List<NewsDto> getNewsByCategoryId(Long categoryId) {
+        return newsRepository.findByCategory_Id(categoryId)
+                .stream()
+                .map(newsMapper::toDto)
+                .toList();
+    }
+
+    public List<NewsDto> getNewsByCategoryName(String categoryName) {
+        return newsRepository.findByCategory_Name(categoryName)
+                .stream()
+                .map(newsMapper::toDto)
+                .toList();
     }
 }
