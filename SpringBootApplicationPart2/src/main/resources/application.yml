@@ -1,0 +1,13 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/newsdb
+        username: postgres
+        password: Magic2000
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        show-sql: true
+        hibernate.ddl-auto: validate
+    liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.xml
+        enabled: false
+        drop-first: false
