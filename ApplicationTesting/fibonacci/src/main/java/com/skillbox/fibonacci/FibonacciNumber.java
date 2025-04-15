@@ -6,8 +6,9 @@ import org.hibernate.annotations.SQLInsert;
 
 
 @Entity
-@Table(name = "fibonacci_number", uniqueConstraints = { @UniqueConstraint(columnNames={"index"}) })
-@SQLInsert(sql = "INSERT INTO fibonacci_number(index, value) VALUES (?, ?) ON CONFLICT(index) DO UPDATE SET value = EXCLUDED.value RETURNING id" )
+@Table(name = "fibonacci_number", uniqueConstraints = {@UniqueConstraint(columnNames = {"index"})})
+@SQLInsert(sql = "INSERT INTO fibonacci_number(index, value) VALUES (?, ?) ON CONFLICT ON CONSTRAINT " +
+                 "fibonacci_number_index_key DO UPDATE SET value = EXCLUDED.value RETURNING id")
 public class FibonacciNumber {
 
     @Id
