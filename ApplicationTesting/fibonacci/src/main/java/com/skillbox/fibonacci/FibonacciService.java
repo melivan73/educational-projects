@@ -24,9 +24,7 @@ public class FibonacciService {
         if (loadedNumber.isPresent()) {
             return loadedNumber.get();
         }
-
         FibonacciNumber computedNumber = new FibonacciNumber(index, calculator.getFibonacciNumber(index));
-
         repository.save(computedNumber);
 
         return computedNumber;
